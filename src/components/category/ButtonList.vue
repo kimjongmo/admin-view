@@ -7,10 +7,7 @@
                         <a @click="previousClick()">이전</a>
                     </li>
 
-                    <li class="paginate_button"
-                        v-for="btn in btnList"
-                        :key="btn"
-                        @click="indexClick(btn)">
+                    <li class="paginate_button" v-for="btn in btnList" :key="btn" @click="indexClick(btn)">
                         <a aria-controls="example2">{{btn}}</a>
                     </li>
 
@@ -25,29 +22,29 @@
 
 <script>
     export default {
-        props: ['btnList', 'pagination'],
+        props: ['btnList','pagination'],
         name: "ButtonList",
         methods: {
-            previousClick() {
+            previousClick(){
                 this.$emit('previousClick');
             },
-            nextClick() {
+            nextClick(){
                 this.$emit('nextClick');
             },
-            indexClick(idx) {
-                this.$emit('indexClick', idx);
+            indexClick(idx){
+                this.$emit('indexClick',idx);
             },
-        }, mounted() {
-            if (this.pagination.current_page === 0) {
+        },mounted() {
+            if(this.pagination.current_page === 0){
                 this.$refs.previousBtn.classList.add("disabled")
-            } else {
+            }else{
                 this.$refs.previousBtn.classList.remove("disabled")
             }
 
             // 다음버튼
-            if (this.pagination.current_page === this.pagination.total_pages - 1) {
+            if(this.pagination.current_page === this.pagination.total_pages-1){
                 this.$refs.nextBtn.classList.add("disabled")
-            } else {
+            }else{
                 this.$refs.nextBtn.classList.remove("disabled")
             }
         }

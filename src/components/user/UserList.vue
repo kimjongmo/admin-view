@@ -14,10 +14,10 @@
         </thead>
         <tbody id="itemList">
         <template v-for="user in userList">
-            <tr role="row" class="odd" :key="user.id">
+            <tr role="row" class="odd" :key="user.id" @click="$router.push({name: 'user',params:{id: user.id}})">
                 <td class="text-center">{{user.id}}</td>
                 <td class="text-center">{{user.account}}</td>
-                <td class="text-center">{{user.status}}</td>
+                <td class="text-center">{{user.status==="REGISTERED"?"등록":"해지"}}</td>
                 <td class="text-center">{{user.email}}</td>
                 <td class="text-center">{{user.phone_number}}</td>
                 <td class="text-center">{{user.registered_at}}</td>

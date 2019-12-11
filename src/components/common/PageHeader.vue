@@ -1,7 +1,7 @@
 <template>
     <header class="main-header">
 
-        <a href="/pages/main" class="logo">
+        <a @click="$router.push({name: 'default'})" class="logo">
             <span class="logo-mini"><b>A</b>LT</span>
             <span class="logo-lg"><b>Admin</b></span>
         </a>
