@@ -5,8 +5,7 @@
             <page-side></page-side>
             <!-- Content Start -->
             <template>
-<!--                <default-content></default-content>-->
-                <user-content></user-content>
+                <router-view></router-view>
             </template>
             <!-- Content End -->
 
@@ -24,8 +23,6 @@
     import PageFooter from "./components/common/PageFooter";
     import PageSide from "./components/common/PageSide";
     import ControlSideBar from "./components/common/ControlSideBar";
-    // import DefaultContent from "./components/common/DefaultContent";
-    import UserContent from "./components/user/Content";
 
     export default {
         name: 'app',
@@ -34,8 +31,6 @@
             PageFooter,
             PageSide,
             ControlSideBar,
-            // DefaultContent,
-            UserContent
         }
     }
 </script>

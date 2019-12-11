@@ -1,11 +1,27 @@
-# admin
+# Admin View
+
+### Prerequisites
+
+- node.js
+
+- vue cli 
+- axios
+- [api server](https://github.com/kimjongmo/admin)
+
+
 
 ## Project setup
+
 ```
 npm install
 ```
 
+
+
+
+
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
@@ -22,3 +38,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
