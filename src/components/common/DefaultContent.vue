@@ -6,9 +6,9 @@
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{orderCnt}}</h3>
 
-                            <p>신규 주문</p>
+                            <p>총 주문 횟수</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-shopping-cart"></i>
@@ -23,9 +23,9 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3>{{userCnt}}</h3>
 
-                            <p>신규 유저</p>
+                            <p>유저 수</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -40,9 +40,9 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{partnerCnt}}</h3>
 
-                            <p>신규 파트너</p>
+                            <p>파트너 수</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
@@ -57,9 +57,9 @@
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{itemCnt}}</h3>
 
-                            <p>신규 상품</p>
+                            <p>상품 갯수</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
@@ -77,7 +77,25 @@
 
 <script>
     export default {
-        name: "DefaultContent"
+        name: "DefaultContent",
+        data(){
+            return {
+                itemCnt: 0,
+                userCnt: 0,
+                partnerCnt: 0,
+                orderCnt: 0
+            }
+        },
+        mounted() {
+            this.$http.get('http://localhost:9090/api/default/count')
+                .then(res => {
+                    let data =res.data.data;
+                    this.itemCnt = data.item_cnt;
+                    this.userCnt = data.user_cnt;
+                    this.partnerCnt = data.partner_cnt;
+                    this.orderCnt = data.order_group_cnt;
+                })
+        }
     }
 </script>
 
