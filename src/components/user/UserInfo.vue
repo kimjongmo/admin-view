@@ -1,4 +1,5 @@
 <template>
+    <!-- UserInfo START -->
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div class="row">
@@ -57,7 +58,11 @@
                 </div>
             </div>
         </div>
+        <button class="btn-app" @click="$router.push({name: 'userModify',params:{id: user.id}})">정보 수정</button>
+        <button class="btn-app" v-if="user.status==='REGISTERED'" @click="inactive()">비활성화</button>
+        <button class="btn-app" v-else @click="active()">활성화</button>
     </div>
+    <!-- UserInfo END -->
 </template>
 
 <script>
@@ -70,7 +75,30 @@
                     return order_group.status.match('COMPLETE')
                 })
             }
-
+        },
+        methods: {
+            inactive: function () {
+                this.user.status = 'UNREGISTERED';
+                this.$http.put('http://localhost:9090/api/user',{
+                    'data': this.user
+                }).then(response => {
+                    if(response.status==200){
+                        alert('비활성화 되었습니다.');
+                        this.$router.push({name: 'user',params:{id: this.user.id}})
+                    }
+                }).catch();
+            },
+            active: function () {
+                this.user.status = 'REGISTERED';
+                this.$http.put('http://localhost:9090/api/user',{
+                    'data': this.user
+                }).then(response => {
+                    if(response.status==200){
+                        alert('활성화 되었습니다.');
+                        this.$router.push({name: 'user',params:{id: this.user.id}})
+                    }
+                }).catch();
+            }
         }
     }
 </script>
