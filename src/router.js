@@ -7,6 +7,7 @@ import UserInfoPage from "./components/user/UserInfoPage";
 import CategoryContent from "./components/category/CategoryContent";
 import PartnerContent from "./components/partner/PartnerContent";
 import OrderDetailContent from "./components/orderDetail/OrderDetailContent";
+import UserModify from "./components/user/modify/UserModify";
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
+        {
+          path: '/userModify/:id',
+          name: 'userModify',
+          component: UserModify
+        },
         {
             path: '/user/:id',
             name: 'user',

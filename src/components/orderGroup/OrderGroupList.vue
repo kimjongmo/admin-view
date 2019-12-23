@@ -27,7 +27,7 @@
                     <td class="text-center">{{orderGroup.rev_address}}</td>
                     <td class="text-center">{{orderGroup.rev_name}}</td>
                     <td class="text-center">{{getType(orderGroup.payment_type)}}</td>
-                    <td class="text-center">{{orderGroup.total_price}}</td>
+                    <td class="text-center">{{numberFormat(orderGroup.total_price)}}원</td>
                     <td class="text-center">{{orderGroup.total_quantity}}</td>
                     <td class="text-center">{{orderGroup.order_at}}</td>
                     <td class="text-center">{{orderGroup.arrival_date}}</td>
@@ -71,6 +71,13 @@
                     this.$refs.example2.children[1].children[id].classList.add('active');
                     this.items = this.orderGroupList[id].item_api_response_list;
                 }
+            },
+            numberFormat : function (number) {
+                if(this==0) return 0;
+                var reg = /(^[+-]?\d+)(\d{3})/;
+                var n = (number + '');
+                while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+                return n;
             }
         },
         components: {
