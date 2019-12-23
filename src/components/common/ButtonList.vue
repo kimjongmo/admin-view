@@ -8,12 +8,12 @@
                     </li>
 
                     <li class="paginate_button"
+                        v-bind:class="{active: btn.isActive}"
                         v-for="btn in btnList"
                         :key="btn"
-                        @click="indexClick(btn)">
-                        <a aria-controls="example2">{{btn}}</a>
+                        @click="indexClick(btn.value)">
+                        <a aria-controls="example2">{{btn.value}}</a>
                     </li>
-
                     <li class="paginate_button next" ref="nextBtn">
                         <a @click="nextClick()">다음</a>
                     </li>

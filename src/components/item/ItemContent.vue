@@ -45,7 +45,7 @@
 <script>
     import ItemList from "./ItemList";
     import ContentHeader from "./Header";
-    import ButtonList from "./ButtonList";
+    import ButtonList from "../common/ButtonList";
 
     export default {
         name: "Content",
@@ -83,7 +83,7 @@
                         for (let i = 1; i <= this.maxBtnSize; i++) {
                             let value = i + (temp * this.maxBtnSize);
                             if (value <= this.pagination.total_pages) {
-                                this.btnList.push(value);
+                                this.btnList.push({"value":value, "isActive":value==this.pagination.current_page+1});
                             }
                         }
                     });
