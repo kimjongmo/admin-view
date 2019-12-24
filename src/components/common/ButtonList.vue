@@ -10,7 +10,7 @@
                     <li class="paginate_button"
                         v-bind:class="{active: btn.isActive}"
                         v-for="btn in btnList"
-                        :key="btn"
+                        :key="btn.value"
                         @click="indexClick(btn.value)">
                         <a aria-controls="example2">{{btn.value}}</a>
                     </li>
