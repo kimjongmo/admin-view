@@ -40,7 +40,7 @@
                             <div class="col-lg-6 left"
                                  style="text-align:center;overflow-wrap: break-word;">
                                 <h4><p style="text-align: center;"><strong
-                                        id="user-globe-rank">{{user.order_group_api_response_list.length}} </strong></p>
+                                        id="user-globe-rank">{{AllOrderCount()}} </strong></p>
                                 </h4>
                                 <p><small class="label label-success">요청 주문 횟수</small></p>
                                 <!--<button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>-->
@@ -48,7 +48,7 @@
                             <div class=" col-lg-6 left"
                                  style="text-align:center;overflow-wrap: break-word;">
                                 <h4><p style="text-align: center;"><strong
-                                        id="user-college-rank">{{completeList.length}}</strong></p>
+                                        id="user-college-rank">{{CompletedOrderCount()}}</strong></p>
                                 </h4>
                                 <p><small class="label label-warning">완료된 주문 수</small></p>
                                 <!-- <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>-->
@@ -67,39 +67,47 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['user','order_group'],
         name: "UserInfo",
-        computed: {
-            "completeList": function () {
-                return this.user.order_group_api_response_list.filter(function (order_group) {
-                    return order_group.status.match('COMPLETE')
-                })
+        data: function () {
+            return {
             }
         },
         methods: {
             inactive: function () {
                 this.user.status = 'UNREGISTERED';
-                this.$http.put('http://localhost:9090/api/user',{
+                this.$http.put('http://localhost:9090/api/user', {
                     'data': this.user
                 }).then(response => {
-                    if(response.status==200){
+                    if (response.status == 200) {
                         alert('비활성화 되었습니다.');
-                        this.$router.push({name: 'user',params:{id: this.user.id}})
+                        this.$router.push({name: 'user', params: {id: this.user.id}})
                     }
                 }).catch();
             },
             active: function () {
                 this.user.status = 'REGISTERED';
-                this.$http.put('http://localhost:9090/api/user',{
+                this.$http.put('http://localhost:9090/api/user', {
                     'data': this.user
                 }).then(response => {
-                    if(response.status==200){
+                    if (response.status == 200) {
                         alert('활성화 되었습니다.');
-                        this.$router.push({name: 'user',params:{id: this.user.id}})
+                        this.$router.push({name: 'user', params: {id: this.user.id}})
                     }
                 }).catch();
+            },
+            "AllOrderCount": function () {
+                return this.order_group.length;
+            },
+            "CompletedOrderCount": function () {
+                let len = 0;
+                for(let i = 0;i<this.order_group.length;i++){
+                    if(this.order_group[i].status == 'COMPLETE')
+                        len++;
+                }
+                return len;
             }
-        }
+        },
     }
 </script>
 

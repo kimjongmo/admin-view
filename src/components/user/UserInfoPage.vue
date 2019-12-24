@@ -30,7 +30,7 @@
                                     <div class="col-sm-12">
                                         <!-- UserList Component -->
                                         <template>
-                                            <user-info :user="user"/>
+                                            <user-info :user="user" :order_group="orderGroupList"/>
                                         </template>
                                     </div>
                                 </div>
