@@ -3,7 +3,7 @@
         <div class="col-sm-7">
             <div class="dataTables_paginate paging_simple_numbers" id="pageBtn">
                 <ul class="pagination">
-                    <li class="paginate_button previous" ref="previousBtn">
+                    <li class="paginate_button previous" v-bind:class="{disabled: isFirstPage()}">
                         <a @click="previousClick()">이전</a>
                     </li>
 
@@ -14,7 +14,8 @@
                         @click="indexClick(btn.value)">
                         <a aria-controls="example2">{{btn.value}}</a>
                     </li>
-                    <li class="paginate_button next" ref="nextBtn">
+
+                    <li class="paginate_button next" v-bind:class="{disabled: isLastPage()}">
                         <a @click="nextClick()">다음</a>
                     </li>
                 </ul>
@@ -27,6 +28,10 @@
     export default {
         props: ['btnList', 'pagination'],
         name: "ButtonList",
+        data : function(){
+          return {
+          }
+        },
         methods: {
             previousClick() {
                 this.$emit('previousClick');
@@ -37,18 +42,11 @@
             indexClick(idx) {
                 this.$emit('indexClick', idx);
             },
-        }, mounted() {
-            if (this.pagination.current_page === 0) {
-                this.$refs.previousBtn.classList.add("disabled")
-            } else {
-                this.$refs.previousBtn.classList.remove("disabled")
-            }
-
-            // 다음버튼
-            if (this.pagination.current_page === this.pagination.total_pages - 1) {
-                this.$refs.nextBtn.classList.add("disabled")
-            } else {
-                this.$refs.nextBtn.classList.remove("disabled")
+            isLastPage(){
+                return this.pagination.current_page == this.pagination.total_pages-1
+            },
+            isFirstPage(){
+                return this.pagination.current_page === 0
             }
         }
     }
