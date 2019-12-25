@@ -79,6 +79,11 @@
             let id = this.$route.params.id;
             this.$http.get('http://localhost:9090/api/user/' + id+"/orderInfo")
                 .then(res => {
+                    if(res.data.result_code !== 'OK'){
+                        alert('존재하지 않는 유저입니다.');
+                        history.back();
+                        return;
+                    }
                     this.user = res.data.data.user_api_response;
                     this.orderGroupList = this.user.order_group_api_response_list;
                 });
