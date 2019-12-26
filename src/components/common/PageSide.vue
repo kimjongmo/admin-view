@@ -14,6 +14,8 @@
 </template>
 
 <script>
+    import {eventBus} from "../../main";
+
     export default {
         name: "SideBar",
         data : function(){
@@ -39,6 +41,11 @@
                 }
                 return false;
             }
+        },
+        created() {
+            eventBus.$on('setSelectedName',name => {
+                this.selectedName = name;
+            });
         }
     }
 </script>

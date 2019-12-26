@@ -6,6 +6,9 @@ import router from './router'
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
 
+export const eventBus = new Vue();
+
+
 new Vue({
   router,
   render: h => h(App),
