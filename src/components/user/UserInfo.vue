@@ -32,7 +32,7 @@
                                 <strong>Register Date</strong></p>
                             <p style="text-align:center;font-size: smaller;"
                                id="user-role">{{user.registered_at}}</p>
-                            <p style="text-align:center;font-size: smaller;">
+                            <p v-if="user.unregistered_at" style="text-align:center;font-size: smaller;">
                                 <strong>Unregister Date</strong></p>
                             <p v-if="user.unregistered_at" style="text-align:center;font-size: smaller;"
                             >{{user.unregistered_at}}</p>
@@ -59,8 +59,7 @@
             </div>
         </div>
         <button class="btn-app" @click="$router.push({name: 'userModify',params:{id: user.id}})">정보 수정</button>
-        <button class="btn-app" v-if="user.status==='REGISTERED'" @click="inactive()">비활성화</button>
-        <button class="btn-app" v-else @click="active()">활성화</button>
+        <button class="btn-app" @click="statusChange()">{{user.status==='REGISTERED'?'비활성화':'활성화'}}</button>
     </div>
     <!-- UserInfo END -->
 </template>
@@ -74,27 +73,8 @@
             }
         },
         methods: {
-            inactive: function () {
-                this.user.status = 'UNREGISTERED';
-                this.$http.put('http://localhost:9090/api/user', {
-                    'data': this.user
-                }).then(response => {
-                    if (response.status == 200) {
-                        alert('비활성화 되었습니다.');
-                        this.$router.push({name: 'user', params: {id: this.user.id}})
-                    }
-                }).catch();
-            },
-            active: function () {
-                this.user.status = 'REGISTERED';
-                this.$http.put('http://localhost:9090/api/user', {
-                    'data': this.user
-                }).then(response => {
-                    if (response.status == 200) {
-                        alert('활성화 되었습니다.');
-                        this.$router.push({name: 'user', params: {id: this.user.id}})
-                    }
-                }).catch();
+            statusChange : function(){
+                this.$emit('refresh');
             },
             "AllOrderCount": function () {
                 return this.order_group.length;
@@ -106,8 +86,8 @@
                         len++;
                 }
                 return len;
-            }
-        },
+            },
+        }
     }
 </script>
 

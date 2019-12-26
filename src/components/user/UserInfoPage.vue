@@ -30,7 +30,10 @@
                                     <div class="col-sm-12">
                                         <!-- UserList Component -->
                                         <template>
-                                            <user-info :user="user" :order_group="orderGroupList"/>
+                                            <user-info
+                                                    @refresh="statusChange()"
+                                                    :user="user"
+                                                    :order_group="orderGroupList"/>
                                         </template>
                                     </div>
                                 </div>
@@ -74,8 +77,23 @@
                 user: '',
                 orderGroupList: ''
             }
-        }
-        , mounted() {
+        },
+        methods : {
+          statusChange : function () {
+              this.user.status = this.user.status ==='REGISTERED'?'UNREGISTERED':'REGISTERED';
+              this.$http.put('http://localhost:9090/api/user', {
+                  'data': this.user
+              }).then(response => {
+                  if (response.status == 200) {
+                      alert('상태 변경 되었습니다.');
+                      this.user = response.data.data;
+                  }else{
+                      alert('오류!!!');
+                  }
+              }).catch();
+          }
+        },
+        mounted() {
             let id = this.$route.params.id;
             this.$http.get('http://localhost:9090/api/user/' + id+"/orderInfo")
                 .then(res => {
