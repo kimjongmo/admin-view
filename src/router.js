@@ -8,7 +8,8 @@ import CategoryContent from "./components/category/CategoryContent";
 import PartnerContent from "./components/partner/PartnerContent";
 import OrderDetailContent from "./components/orderDetail/OrderDetailContent";
 import UserModify from "./components/user/modify/UserModify";
-
+import ItemInfoPage from "./components/item/info/ItemInfoPage";
+import PartnerInfoPage from "./components/partner/info/PartnerInfoPage";
 Vue.use(Router)
 
 export default new Router({
@@ -36,6 +37,11 @@ export default new Router({
             component: ItemContent
         },
         {
+            path: '/item/:id',
+            name: 'itemInfo',
+            component: ItemInfoPage
+        },
+        {
             path: '/',
             name: 'default',
             component: DefaultContent
@@ -48,6 +54,11 @@ export default new Router({
             path: '/partners',
             name: 'partners',
             component: PartnerContent
+        },
+        {
+            path: '/partner/:id',
+            name: 'partnerInfo',
+            component: PartnerInfoPage
         },
         {
             path: '/orders',

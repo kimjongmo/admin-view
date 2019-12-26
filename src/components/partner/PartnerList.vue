@@ -17,7 +17,7 @@
         </thead>
         <tbody id="itemList">
         <template v-for="partner in partnerList">
-            <tr role="row" class="odd" :key="partner.id">
+            <tr role="row" class="odd" :key="partner.id" @click="$router.push({name: 'partnerInfo',params:{id: partner.id}})">
                 <td class="text-center">{{partner.id}}</td>
                 <td class="text-center">{{partner.business_number}}</td>
                 <td class="text-center">{{partner.status=='REGISTERED'?"등록":"미등록"}}</td>
