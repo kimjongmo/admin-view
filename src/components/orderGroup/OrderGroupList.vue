@@ -36,7 +36,7 @@
             </tbody>
         </table>
         <div v-if="items">
-            <receipt :items="items"></receipt>
+            <receipt :items="items" @closeReceipt="closeReceipt()"></receipt>
         </div>
     </div>
 </template>
@@ -63,21 +63,19 @@
                 return "알수없음";
             },
             setItems: function (id) {
-                if(this.$refs.example2.children[1].children[id].classList.contains('active')){
-                    this.$refs.example2.children[1].children[id].classList.remove('active');
-                    this.items = '';
-                }else{
-                    this.$refs.example2.children[1].children.forEach(child=>child.classList.remove('active'));
-                    this.$refs.example2.children[1].children[id].classList.add('active');
-                    this.items = this.orderGroupList[id].item_api_response_list;
-                }
+                this.$refs.example2.children[1].children[id].classList.add('active');
+                this.items = this.orderGroupList[id].item_api_response_list;
             },
-            numberFormat : function (number) {
-                if(this==0) return 0;
+            numberFormat: function (number) {
+                if (this == 0) return 0;
                 var reg = /(^[+-]?\d+)(\d{3})/;
                 var n = (number + '');
                 while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
                 return n;
+            },
+            closeReceipt: function () {
+                this.$refs.example2.children[1].children.forEach(child => child.classList.remove('active'));
+                this.items = '';
             }
         },
         components: {
@@ -88,7 +86,7 @@
 </script>
 
 <style scoped>
-    #example2 .active{
+    #example2 .active {
         background-color: #9d9d9d;
     }
 </style>
