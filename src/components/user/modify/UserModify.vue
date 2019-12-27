@@ -1,20 +1,8 @@
 <template>
     <div class="content-wrapper">
         <!-- Header Start -->
-        <section class="content-header">
-            <h1>
-                사용자 관리
-                <small>수정</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 사용자 관리</a></li>
-                <li>회원 관리</li>
-                <li>회원 정보</li>
-                <li class="active">수정</li>
-            </ol>
-        </section>
+        <content-header :tab-list="tabList"/>
         <!-- Header End -->
-
 
         <!-- Content Start -->
         <section class="content">
@@ -55,11 +43,19 @@
 </template>
 
 <script>
+    import ContentHeader from "../../common/ContentHeader";
+    import {eventBus} from "../../../main";
     export default {
         name: "UserModify",
         data() {
             return {
-                user: ''
+                user: '',
+                tabList: [
+                    {title:'사용자 관리',name:'',href:'',selected:false},
+                    {title:'회원 리스트',name:'users',href:'',selected:false},
+                    {title:'회원 정보',name:'user',href:this.$route.params.id,selected:false},
+                    {title:'수정',name:'',href:'',selected:true},
+                ]
             }
         },
         mounted() {
@@ -82,10 +78,15 @@
             cancel: function () {
                 this.$router.push({name: 'user',params:{id: this.user.id}})
             }
+        },
+        created(){
+            eventBus.$emit('setSelectedName','users');
+        },
+        components: {
+            ContentHeader
         }
     }
 </script>
 
 <style scoped>
-
 </style>

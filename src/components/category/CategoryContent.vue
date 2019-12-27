@@ -1,7 +1,7 @@
 <template>
     <div class="content-wrapper">
         <!-- Header Component -->
-        <content-header/>
+        <content-header :tab-list="tabList"/>
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -44,8 +44,9 @@
 
 <script>
     import CategoryList from "./CategoryList";
-    import ContentHeader from "./Header";
+    import ContentHeader from "../common/ContentHeader";
     import ButtonList from "../common/ButtonList";
+    import {eventBus} from "../../main";
 
     export default {
         name: "Content",
@@ -56,6 +57,10 @@
                 pagination: '',
                 maxBtnSize: 7,
                 response: '',
+                tabList: [
+                    {title:'카테고리 관리',name:'',href:'',selected:false},
+                    {title:'카테고리 리스트',name:'',href:'',selected:true},
+                ]
             };
         },
         methods: {
@@ -91,6 +96,9 @@
         },
         mounted() {
             this.searchStart(0);
+        },
+        created(){
+            eventBus.$emit('setSelectedName','categories')
         },
         components: {
             ContentHeader,

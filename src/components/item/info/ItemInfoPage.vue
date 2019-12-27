@@ -1,18 +1,8 @@
 <template>
     <div class="content-wrapper">
         <!-- HEADER START-->
-        <section class="content-header">
-            <h1>
-                아이템 관리
-                <small>상품 정보</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 아이템 관리</a></li>
-                <li class="active">상품 정보</li>
-            </ol>
-        </section>
+        <content-header :tab-list="tabList"/>
         <!-- HEADER END-->
-
         <section class="content">
             <div class="box-body">
                 <table class="table table-bordered success">
@@ -61,12 +51,18 @@
 
 <script>
     import {eventBus} from "../../../main";
+    import ContentHeader from "../../common/ContentHeader";
 
     export default {
         name: "ItemInfo",
         data: function () {
             return {
-                item: ''
+                item: '',
+                tabList: [
+                    {title:'상품 관리',name:'',href:'',selected:false},
+                    {title:'상품 리스트',name:'items',href:'',selected:false},
+                    {title:'상품 상세정보',name:'',href:'',selected:true},
+                ]
             }
         },
         methods: {
@@ -95,6 +91,9 @@
 
             /* 카테고리 선택 활성화*/
             eventBus.$emit('setSelectedName','items');
+        },
+        components:{
+            ContentHeader
         }
     }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="content-wrapper">
         <!-- Header Component -->
-        <content-header/>
+        <content-header :tab-list="tabList"/>
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -43,9 +43,11 @@
 </template>
 
 <script>
+    import ContentHeader from "../common/ContentHeader";
     import PartnerList from "./PartnerList";
-    import ContentHeader from "./Header";
+    // import ContentHeader from "./Header";
     import ButtonList from "../common/ButtonList";
+    import {eventBus} from "../../main";
 
     export default {
         name: "Content",
@@ -56,6 +58,10 @@
                 pagination: '',
                 maxBtnSize: 7,
                 response: '',
+                tabList: [
+                    {title:'파트너사 관리',name:'',href:'',selected:false},
+                    {title:'파트너사 리스트',name:'',href:'',selected:true},
+                ]
             };
         },
         methods: {
@@ -91,6 +97,10 @@
         },
         mounted() {
             this.searchStart(0);
+        },
+        created: function () {
+            /* 카테고리 선택 활성화*/
+            eventBus.$emit('setSelectedName','partners');
         },
         components: {
             ContentHeader,

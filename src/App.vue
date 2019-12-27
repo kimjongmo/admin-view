@@ -36,4 +36,8 @@
 </script>
 
 <style>
+    .content-header > .breadcrumb >li > a:hover {
+        color: #0d6aad;
+        cursor: pointer;
+    }
 </style>

@@ -7,8 +7,8 @@
                 <small>회원 정보</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 사용자 관리</a></li>
-                <li>회원 관리</li>
+                <li><i class="fa fa-dashboard"></i> 사용자 관리</li>
+                <li><a @click="$router.push({name:'users'})">회원 리스트</a></li>
                 <li class="active">회원 정보</li>
             </ol>
         </section>
@@ -70,12 +70,18 @@
 <script>
     import UserInfo from "./UserInfo";
     import OrderGroupList from "../orderGroup/OrderGroupList";
+    import {eventBus} from "../../main";
 
     export default {
         data() {
             return {
                 user: '',
-                orderGroupList: ''
+                orderGroupList: '',
+                tabList: [
+                    {title:'사용자 관리',name:'',href:'',selected:false},
+                    {title:'회원 리스트',name:'users',href:'',selected:false},
+                    {title:'회원 정보',name:'user',href:this.$route.params.id,selected:true},
+                ]
             }
         },
         methods: {
@@ -105,6 +111,10 @@
                     this.user = res.data.data.user_api_response;
                     this.orderGroupList = this.user.order_group_api_response_list;
                 });
+        },
+        created(){
+            /* 카테고리 선택 활성화*/
+            eventBus.$emit('setSelectedName','users');
         },
         components: {
             UserInfo,
