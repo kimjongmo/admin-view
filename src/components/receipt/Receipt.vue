@@ -195,7 +195,7 @@
         display: block;
         position: fixed;
         z-index: 1500;
-        padding-top: 100px;
+        padding-top: 0px;
         left: 0;
         top: 0;
         overflow: auto;

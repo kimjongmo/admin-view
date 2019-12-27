@@ -6,7 +6,7 @@
 
         <section class="content">
             <div class="box-body">
-                <table class="table table-bordered success">
+                <table class="table table-bordered success" style="border: 1px solid #8c8c8c;">
                     <thead>
                     <tr>
                         <th>회사 고유번호</th>
@@ -172,7 +172,6 @@
         bottom: 15px;
     }
 
-    .table-bordered,
     .table-bordered > thead > tr > th ,
     .table-bordered > thead > tr > td {
         border: 1px solid #8c8c8c;
